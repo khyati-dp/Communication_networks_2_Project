@@ -106,4 +106,4 @@ def rpFunction(myID, pktType, n, seq, recID, ndest, rdest, dest1, dest2, dest3, 
                 print("with information   {}       {}  {}      {}      {}        {}       {}        {}      {}".format(pktType, seq, recID, ndest, rdest, dests[0], 0, 0, data))
                 routerFunctions.sendData(datapkt, nextHop, myID)
 
-rpFunction(201, 7, 3, 1, 101, 2, 0, 102, 103, 0, "This is a 2 out of 3 multicast message")
+#rpFunction(201, 7, 3, 1, 101, 2, 0, 102, 103, 0, "This is a 2 out of 3 multicast message")
