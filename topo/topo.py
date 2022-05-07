@@ -12,14 +12,6 @@ import sys, time
 import cleanup
 from printer import *
 from packet import *
-#from topoFinal import topoFinal
-
-"""
-def startServer():
-    (net.hosts[0]).cmd('python /home/mininet/comnet2_2020/comnetsii_package/udpServer.py &')
-    (net.hosts[1]).cmd('python /home/mininet/comnet2_2020/comnetsii_package/udpServerHost.py &')
-    (net.hosts[2]).cmd('python /home/mininet/comnet2_2020/comnetsii_package/udpServerHost.py &')
-"""
 
 class LinuxRouter( Node ):
     "A Node with IP forwarding enabled."
@@ -43,7 +35,7 @@ class topoFinal( Topo ):
 
         routers = [ self.addNode( 'r%d' % n, cls=LinuxRouter,
                     ip='192.168.1.%d/24' % n ) 
-                    for n in range(201,207) ]
+                    for n in range(201,206) ]
 
         info( "*** Creating Router Links\n" )
         self.addLink( routers[routers.index('r201')], routers[routers.index('r202')],
@@ -56,8 +48,8 @@ class topoFinal( Topo ):
             intfName1='r203-eth2' )
         self.addLink( routers[routers.index('r204')], routers[routers.index('r205')],
             intfName1='r204-eth1' )
-        self.addLink( routers[routers.index('r205')], routers[routers.index('r206')],
-            intfName1='r205-eth2' )
+        #self.addLink( routers[routers.index('r205')], routers[routers.index('r206')],
+            ##intfName1='r205-eth2' )
 
         info( "*** Creating Hosts\n" )
         hosts = [ self.addHost( 'h%d' % n, 
@@ -71,7 +63,7 @@ class topoFinal( Topo ):
             intfName1='h102-eth0' )
         self.addLink( hosts[hosts.index('h103')], routers[routers.index('r204')],
             intfName1='h103-eth0' )
-        self.addLink( hosts[hosts.index('h104')], routers[routers.index('r206')],
+        self.addLink( hosts[hosts.index('h104')], routers[routers.index('r205')],
             intfName1='h104-eth0' )
     
 def run():
@@ -86,7 +78,7 @@ def run():
     net['h101'].cmd( 'route add -net 192.168.1.0/24 gw {}'.format(net['r201'].IP()) ) 
     net['h102'].cmd( 'route add -net 192.168.1.0/24 gw {}'.format(net['r202'].IP()) ) 
     net['h103'].cmd( 'route add -net 192.168.1.0/24 gw {}'.format(net['r204'].IP()) ) 
-    net['h104'].cmd( 'route add -net 192.168.1.0/24 gw {}'.format(net['r206'].IP()) ) 
+    net['h104'].cmd( 'route add -net 192.168.1.0/24 gw {}'.format(net['r205'].IP()) ) 
    
     #Router r201 routes
     net['r201'].cmd( 'ip route add {}/32 dev r201-eth0'.format(net['r202'].IP()) )
@@ -110,11 +102,11 @@ def run():
     #Router r205 routes
     net['r205'].cmd( 'ip route add {}/32 dev r205-eth0'.format(net['r203'].IP()) )
     net['r205'].cmd( 'ip route add {}/32 dev r205-eth1'.format(net['r204'].IP()) )
-    net['r205'].cmd( 'ip route add {}/32 dev r205-eth2'.format(net['r206'].IP()) ) 
+    net['r205'].cmd( 'ip route add {}/32 dev r205-eth2'.format(net['h104'].IP()) ) 
     
     #Router r206 routes
-    net['r206'].cmd( 'ip route add {}/32 dev r206-eth0'.format(net['r205'].IP()) )
-    net['r206'].cmd( 'ip route add {}/32 dev r206-eth1'.format(net['h104'].IP()) )
+    #net['r206'].cmd( 'ip route add {}/32 dev r206-eth0'.format(net['r205'].IP()) )
+    #net['r206'].cmd( 'ip route add {}/32 dev r206-eth1'.format(net['h104'].IP()) )
     
     
     
