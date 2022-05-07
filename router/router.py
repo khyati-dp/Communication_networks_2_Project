@@ -168,3 +168,14 @@ if __name__ == "__main__":
                 print("router along path to multiple destinations, checking to see how to forward message along")
                 dataPktFunctions.rpFunction(myID, pktType, n, seq, recID, ndest, rdest, dest1, dest2, dest3, data)
 
+"""
+#Just some test code
+destPath = [[1,2,3],[1,5,6],[1,7,8]]
+destPath = [[102],[103]]
+lookaheadFlag = []
+index=range(len(destPath))
+for a, b in itertools.combinations(index, 2):
+    if destPath[a][0] == destPath[b][0]:
+        lookaheadFlag.append([a,b])
+print(lookaheadFlag)
+"""
